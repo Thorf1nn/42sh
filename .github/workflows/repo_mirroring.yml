@@ -5,7 +5,7 @@ on: [push, delete]
 jobs:
   to_github:
     runs-on: ubuntu-latest
-    steps:                                            
+    steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -13,5 +13,5 @@ jobs:
         with:
           target_repo_url:
             git@github.com:EpitechPromo2026/B-PSU-210-MPL-2-1-42sh-enzo.daumalle.git
-          ssh_private_key:                             
+          ssh_private_key:
             ${{ secrets.MIRRORING_SECRET }}

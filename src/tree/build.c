@@ -7,35 +7,18 @@
 
 #include "my_sh.h"
 
-// static int find_redirect(tree_t *tree)
-// {
-//     for (; *path && *path == ' ' && *path != '\t'; path += 1);
-//     if (str_isequal(tree->sep, "<", true))
-//         return 1;
-//     if (str_isequal(tree->sep, ">", true))
-//         return 2;
-//     if (str_isequal(tree->sep, "<<", true))
-//         return 3;
-//     if (str_isequal(tree->sep, ">>", true))
-//         return 4;
-//     return 0;
-// }
-
 void add_node(tree_t **tree, char *line, char *sep)
 {
     tree_t *newNode = malloc(sizeof(tree_t));
     int nb = find_word(line, sep);
 
-    my_printf("%s\n", line);
-    if (line[nb]) {
+    if (line[nb])
         newNode->sep = my_strdup(sep);
-    } else
+    else
         newNode->sep = NULL;
     newNode->cmd = my_strdup(line);
     newNode->left = NULL;
     newNode->right = NULL;
-    // if (newNode->sep)
-    //     redirection(newNode);
     *tree = newNode;
 }
 
@@ -55,13 +38,13 @@ void create_tree(tree_t **node, char *line, char **seps)
     if (line[nb]) {
         create_tree(&(*node)->left,
         range_strdup(line, NULL, *seps, false), seps);
-        create_tree(&(*node)->right, line + nb + 1, seps);
+        create_tree(&(*node)->right, line + nb + my_strlen(*seps), seps);
     }
 }
 
 tree_t *build_tree(char *line)
 {
-    char *seps[7] = {";", ">", "<", ">>", "<<", "|"};
+    char *seps[7] = {";", ">>", "<<", ">", "<", "|"};
     tree_t *root = NULL;
     char *sline = NULL;
 

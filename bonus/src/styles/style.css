@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(31, 22, 35);
+    color: rgb(175, 173, 156);
+}
+
+.grid {
+    display: grid;
+    place-items: center;
+}

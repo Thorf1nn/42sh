@@ -1,0 +1,15 @@
+{
+  "name": "42sh",
+  "version": "1.0.0",
+  "description": "todo !",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "all",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^18.2.3"
+  }
+}

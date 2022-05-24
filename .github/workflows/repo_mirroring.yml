@@ -1,4 +1,4 @@
-name: repository_mirroring
+name: repo_mirroring
 
 on: [push, delete]
 

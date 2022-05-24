@@ -24,11 +24,9 @@ int main(int argc, char **argv, char **env)
     env_t *list = init_env(env);
     char *line = NULL;
 
-    (void) argc;
-    (void) argv;
     srand(time(NULL));
-    if (isatty(STDIN_FILENO))
-        create_ncurses();
+    if (argc == 2)
+        check_flags(argc, argv);
     signal(SIGINT, sign_handler);
     p_ntty(HEADER, list);
     while (getline(&line, &len, stdin) != -1)

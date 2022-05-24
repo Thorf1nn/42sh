@@ -36,11 +36,11 @@ typedef struct builtin_s {
     void (*fptr) (char *, env_t **env, char **);
 } builtin_t;
 
-typedef struct aliases_s {
-    char *alias;
-    char *cmd;
-    aliases_t *next;
-} aliases_t;
+// typedef struct aliases_s {
+//     char *alias;
+//     char *cmd;
+//     aliases_t *next;
+// } aliases_t;
 
 builtin_t *get_builtin(char *line);
 
@@ -55,6 +55,7 @@ void closefd(int *fd);
 void p_ntty(char const *output, env_t *list);
 void sign_handler(int sign_num);
 void add_node_at_back(char *key, char *value, env_t **node);
+void check_flags(int ac, char **av);
 //Env
 env_t *init_env(char **env);
 void edit_venv(char *kenv, env_t **env, char *nwvenv);

@@ -7,10 +7,11 @@
 
 #include "my_sh.h"
 
-void exec_env(UNUSED char *line, env_t **list, UNUSED char **env)
+void exec_env(UNUSED char *line, env_t **list, int id, UNUSED char **env)
 {
     env_t *tmp = *list;
 
+    id = ENV;
     tmp = tmp->next;
     while (tmp) {
         my_printf("%s=%s\n", tmp->key, tmp->value);

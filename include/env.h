@@ -7,10 +7,13 @@
 
 #ifndef __ENV_H__
     #define __ENV_H__
+    #define ENV   0
+    #define ALIAS 1
 
 typedef struct env_s {
     char *key;
     char *value;
+    int id;
     struct env_s *next;
 } env_t;
 

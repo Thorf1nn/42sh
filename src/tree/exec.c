@@ -75,6 +75,8 @@ void exec_pipe(builtin_t *builtin, tree_t *tree, env_t *list, char **env)
 
 void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
 {
+    int id = 0;
+
     if (!tree)
         return;
     if (str_isequal(tree->sep, "|", true))
@@ -84,7 +86,7 @@ void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
     if (!tree->sep && tree->cmd) {
         if (!(builtin = get_builtin(tree->cmd)))
             return exec_binary(&list, env, *tree);
-        (*(builtin->fptr))(tree->cmd, &list, env);
+        (*(builtin->fptr))(tree->cmd, &list, id, env);
         return;
     }
     exec_tree(builtin, list, env, tree->left);

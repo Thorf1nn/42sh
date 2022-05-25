@@ -7,13 +7,14 @@
 
 #include "my_sh.h"
 
-void add_node_at_back(char *key, char *value, env_t **node)
+void add_node_at_back(char *key, char *value, int id, env_t **node)
 {
     env_t *newNode = malloc(sizeof(env_t));
     env_t *lastNode = NULL;
 
     newNode->key = key;
     newNode->value = value;
+    newNode->id = id;
     newNode->next = NULL;
     if (*node == NULL)
         *node = newNode;

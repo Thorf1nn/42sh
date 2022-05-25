@@ -12,7 +12,7 @@
     #define ERROR_MEMORY  "Error of memory"
     #define HEADER        " ❖ "
     #define EXIT          "exit\n"
-    #define NB_CMDS       6
+    #define NB_CMDS       7
 
     #include "my.h"
     #include "ncurses.h"
@@ -33,14 +33,8 @@
 
 typedef struct builtin_s {
     char *cmd;
-    void (*fptr) (char *, env_t **env, char **);
+    void (*fptr) (char *, env_t **env, int id, char **);
 } builtin_t;
-
-// typedef struct aliases_s {
-//     char *alias;
-//     char *cmd;
-//     aliases_t *next;
-// } aliases_t;
 
 builtin_t *get_builtin(char *line);
 
@@ -54,21 +48,22 @@ int my_str_isalpha_numeric(const char *str);
 void closefd(int *fd);
 void p_ntty(char const *output, env_t *list);
 void sign_handler(int sign_num);
-void add_node_at_back(char *key, char *value, env_t **node);
+void add_node_at_back(char *key, char *value, int id, env_t **node);
 void check_flags(int ac, char **av);
 //Env
 env_t *init_env(char **env);
 void edit_venv(char *kenv, env_t **env, char *nwvenv);
 char *find_env(char *kenv, env_t *env);
-void set_env(char *line, env_t **list, char **env);
-void unset_env(char *line, env_t **list, char **env);
+void set_env(char *line, env_t **list, int id, char **env);
+void unset_env(char *line, env_t **list, int id, char **env);
 char *get_path(env_t *list, char **cmd);
 env_t *get_env(env_t *env, char *key);
 //Exec
 void exec_binary(env_t **list, char **env, tree_t leaf);
-void exec_cd(char *line, env_t **list, char **env);
-void exec_env(char *line, env_t **list, char **env);
-void exec_pwd(char *line, env_t **list, char **env);
-void exec_exit(char *line, env_t **list, char **env);
+void exec_cd(char *line, env_t **list, int id, char **env);
+void exec_env(char *line, env_t **list, int id, char **env);
+void exec_pwd(char *line, env_t **list, int id, char **env);
+void exec_exit(char *line, env_t **list, int id, char **env);
+void exec_alias(char *line, UNUSED env_t **list, int id, UNUSED char **env);
 
 #endif /* __MY_SH_H__ */

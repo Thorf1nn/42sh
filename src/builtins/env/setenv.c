@@ -26,14 +26,15 @@ static bool error_handling(char **cmd, int len_cmd)
     return false;
 }
 
-void set_env(char *line, env_t **list, char **env)
+void set_env(char *line, env_t **list, int id, char **env)
 {
     int len_cmd = 0;
     char **cmd = strsplit(line, " \t", false);
 
+    id = ENV;
     for (len_cmd = 0; cmd[len_cmd]; len_cmd += 1);
     if (len_cmd == 1) {
-        exec_env(NULL, list, env);
+        exec_env(NULL, list, ENV, env);
         return;
     }
     if (error_handling(cmd, len_cmd)) {
@@ -41,8 +42,8 @@ void set_env(char *line, env_t **list, char **env)
         return;
     }
     if (len_cmd == 2)
-        add_node_at_back(cmd[1], "\0", list);
+        add_node_at_back(cmd[1], "\0", ENV, list);
     if (len_cmd == 3)
-        add_node_at_back(cmd[1], cmd[2], list);
+        add_node_at_back(cmd[1], cmd[2], ENV, list);
     p_ntty(HEADER, *list);
 }

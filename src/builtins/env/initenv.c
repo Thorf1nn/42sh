@@ -20,7 +20,7 @@ static void parse_env(char *env, env_t **list)
     for (; env[i]; i++)
         value[j++] = env[i];
     value[j] = '\0';
-    add_node_at_back(key, value, list);
+    add_node_at_back(key, value, ENV, list);
 }
 
 env_t *init_env(char **env)

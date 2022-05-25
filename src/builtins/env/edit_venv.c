@@ -19,6 +19,6 @@ void edit_venv(char *kenv, env_t **env, char *nwvenv)
     while (tmp && !str_isequal(tmp->key, kenv, true))
         tmp = tmp->next;
     if (!tmp)
-        return add_node_at_back(kenv, nwvenv, env);
+        return add_node_at_back(kenv, nwvenv, ENV, env);
     tmp->value = my_strdup(nwvenv);
 }

@@ -34,7 +34,7 @@ static void search_node(char *key, env_t **list)
     }
 }
 
-void unset_env(char *line, env_t **list, UNUSED char **env)
+void unset_env(char *line, env_t **list, UNUSED int id, UNUSED char **env)
 {
     char **cmd = strsplit(line, "\t ", false);
     int len;

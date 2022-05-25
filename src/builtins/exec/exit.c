@@ -7,7 +7,7 @@
 
 #include "my_sh.h"
 
-void exec_exit(char *line, env_t **list, UNUSED char **env)
+void exec_exit(char *line, env_t **list, UNUSED int id, UNUSED char **env)
 {
     int argc;
     int val_exit = 0;

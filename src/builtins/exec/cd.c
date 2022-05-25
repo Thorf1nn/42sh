@@ -53,7 +53,7 @@ static void cd_list(char **cmd, env_t **list)
     cd_path(fenv, cmd, list);
 }
 
-void exec_cd(char *line, env_t **list, UNUSED char **env)
+void exec_cd(char *line, env_t **list, UNUSED int id, UNUSED char **env)
 {
     char **cmd = strsplit(line, " \t", false);
     int len_cmd = 0;

@@ -36,14 +36,7 @@
     #include <errno.h>
 
 // History
-const char strBuff[NB_LINES][MAX_LEN] =
-{
-    "Line 1",
-    "Line 2",
-    "Line 3",
-    "Line 4",
-    "Line 5"
-};
+extern char strBuff[NB_LINES][MAX_LEN];
 
 typedef struct builtin_s {
     char *cmd;

@@ -35,12 +35,6 @@
     #include <termios.h>
     #include <errno.h>
 
-<<<<<<< HEAD
-=======
-// History
-extern char strBuff[NB_LINES][MAX_LEN];
-
->>>>>>> 229c00cb18f9d20eeb97b3c8b0ced6d7ae0bfecb
 typedef struct builtin_s {
     char *cmd;
     void (*fptr) (char *, env_t **env, int id, char **);

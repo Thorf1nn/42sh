@@ -34,10 +34,6 @@ static void redirection(tree_t *tree)
 {
     char *path = my_strdup(tree->cmd + find_word(tree->cmd, tree->sep));
 
-    tree->left->fd[IN] = STDIN_FILENO;
-    tree->left->fd[OUT] = STDOUT_FILENO;
-    tree->right->fd[IN] = STDIN_FILENO;
-    tree->right->fd[OUT] = STDOUT_FILENO;
     path += my_strlen(tree->sep);
     for (; *path && *path == ' ' && *path != '\t'; path += 1);
     if (str_isequal(tree->sep, "<", true))
@@ -55,13 +51,18 @@ static void redirection(tree_t *tree)
 void exec_pipe(builtin_t *builtin, tree_t *tree, env_t *list, char **env)
 {
     pid_t pid;
+    int fd[2];
 
     pid = fork();
     if (pid == -1)
         return;
     if (!pid) {
-        if (pipe((int *) {tree->left->fd, tree->right->fd}) == -1)
-            return;
+        if (pipe(fd) == -1) {
+            perror("pipe");
+            exit(84);
+        }
+        tree->left->fd[IN] = fd[IN];
+        tree->right->fd[OUT] = fd[OUT];
         close(tree->left->fd[IN]);
         dup2(tree->right->fd[OUT], STDOUT_FILENO);
         exec_tree(builtin, list, env, tree->left);
@@ -70,7 +71,6 @@ void exec_pipe(builtin_t *builtin, tree_t *tree, env_t *list, char **env)
         dup2(tree->left->fd[IN], STDIN_FILENO);
         exec_tree(builtin, list, env, tree->right);
     }
-    closefd((int *) {tree->left->fd, tree->right->fd});
 }
 
 void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)

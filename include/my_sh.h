@@ -40,7 +40,7 @@ extern char strBuff[NB_LINES][MAX_LEN];
 
 typedef struct builtin_s {
     char *cmd;
-    void (*fptr) (char *, env_t **env, int id, char **);
+    void (*fptr) (char *, env_t **env, char **);
 } builtin_t;
 
 builtin_t *get_builtin(char *line);
@@ -61,16 +61,20 @@ void check_flags(int ac, char **av);
 env_t *init_env(char **env);
 void edit_venv(char *kenv, env_t **env, char *nwvenv);
 char *find_env(char *kenv, env_t *env);
-void set_env(char *line, env_t **list, int id, char **env);
-void unset_env(char *line, env_t **list, int id, char **env);
+void set_env(char *line, env_t **list, char **env);
+void unset_env(char *line, env_t **list, char **env);
 char *get_path(env_t *list, char **cmd);
 env_t *get_env(env_t *env, char *key);
+//Alias
+void set_alias(char *line, env_t **list, UNUSED char **env);
+char *get_alias(env_t *alias, char *line);
+void exec_alias(env_t **list);
+
 //Exec
 void exec_binary(env_t **list, char **env, tree_t leaf);
-void exec_cd(char *line, env_t **list, int id, char **env);
-void exec_env(char *line, env_t **list, int id, char **env);
-void exec_pwd(char *line, env_t **list, int id, char **env);
-void exec_exit(char *line, env_t **list, int id, char **env);
-void exec_alias(char *line, UNUSED env_t **list, int id, UNUSED char **env);
+void exec_cd(char *line, env_t **list, char **env);
+void exec_env(char *line, env_t **list, char **env);
+void exec_pwd(char *line, env_t **list, char **env);
+void exec_exit(char *line, env_t **list, char **env);
 
 #endif /* __MY_SH_H__ */

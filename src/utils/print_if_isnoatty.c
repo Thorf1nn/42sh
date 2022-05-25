@@ -13,7 +13,7 @@ static void print_pwd(env_t *list)
 
     if (!list)
         return;
-    if (!str_isequal(list->key, "PWD", true)) {
+    if (!str_isequal(list->key, "PWD", true) && list->id == ENV) {
         print_pwd(list->next);
         return;
     }

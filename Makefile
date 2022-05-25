@@ -12,6 +12,7 @@ SRC 		=	$(wildcard src/*.c) \
 				$(wildcard src/utils/*.c) \
 				$(wildcard src/builtins/*.c) \
 				$(wildcard src/builtins/env/*.c) \
+				$(wildcard src/builtins/alias/*.c) \
 				$(wildcard src/builtins/exec/*.c) \
 				$(wildcard src/tree/*.c) \
 				$(wildcard src/ncurses/*.c)

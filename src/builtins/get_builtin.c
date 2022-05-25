@@ -14,18 +14,16 @@ static const builtin_t builtins[NB_CMDS] = {
     {"exit", &exec_exit},
     {"setenv", &set_env},
     {"unsetenv", &unset_env},
-    {"alias", &exec_alias}
+    {"alias", &set_alias}
 };
 
 builtin_t *get_builtin(char *line)
 {
-    int i = 0;
     char *command = NULL;
 
-    for (; line[i] && (line[i] == ' ' || line[i] == '\t'); i++);
-    if (!line[i])
+    if (!line)
         return NULL;
-    command = range_strdup(line + i, NULL, " ", true);
+    command = range_strdup(line, NULL, " ", true);
     for (int i = 0; i < NB_CMDS; i++)
         if (str_isequal(command, builtins[i].cmd, true))
             return (builtin_t *) &builtins[i];

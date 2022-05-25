@@ -26,15 +26,14 @@ static bool error_handling(char **cmd, int len_cmd)
     return false;
 }
 
-void set_env(char *line, env_t **list, int id, char **env)
+void set_env(char *line, env_t **list, char **env)
 {
     int len_cmd = 0;
     char **cmd = strsplit(line, " \t", false);
 
-    id = ENV;
     for (len_cmd = 0; cmd[len_cmd]; len_cmd += 1);
     if (len_cmd == 1) {
-        exec_env(NULL, list, ENV, env);
+        exec_env(NULL, list, env);
         return;
     }
     if (error_handling(cmd, len_cmd)) {

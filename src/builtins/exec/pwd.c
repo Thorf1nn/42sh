@@ -7,7 +7,7 @@
 
 #include "my_sh.h"
 
-void exec_pwd(UNUSED char *line, env_t **list, int id, UNUSED char **env)
+void exec_pwd(UNUSED char *line, env_t **list, UNUSED char **env)
 {
     my_putstr(find_env("PWD", *list));
     my_putchar('\n');

@@ -9,8 +9,11 @@
 
 char *find_env(char *kenv, env_t *env)
 {
-    while (env && !str_isequal(env->key, kenv, true))
+    while (env) {
+        if (str_isequal(env->key, kenv, true) && env->id == ENV)
+            break;
         env = env->next;
+    }
     if (!env)
         return NULL;
     return my_strdup(env->value);

@@ -27,16 +27,20 @@ int print_history(void)
     int i = getchh();
     int j = 0;
     int k = 0;
+    int cnt = 0;
 
     while (1) {
+        initscr();
         if (i == 27) {
             j = getchh();
             k = getchh();
         }
         if (i == 27 && j == 91) {
             switch (k) {
-                case 65: printf("UP arrow\n"); break;
-                case 66: printf("DOWN arrow\n"); break;
+                case 65: clear(); printw("%s", strBuff[cnt]); cnt++;
+                if (cnt >= NB_LINES) cnt = 0; refresh(); break;
+                case 66: clear(); printw("%s", strBuff[cnt]); cnt--;
+                if (cnt < 0) cnt = NB_LINES - 1; refresh(); break;
                 case EOF: return 0; break;
                 default: break;
             }

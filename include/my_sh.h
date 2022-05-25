@@ -12,7 +12,7 @@
     #define ERROR_MEMORY  "Error of memory"
     #define HEADER        " ❖ "
     #define EXIT          "exit\n"
-    #define NB_CMDS       7
+    #define NB_CMDS       8
 
 // History
     #define NB_LINES 5
@@ -62,10 +62,12 @@ void set_env(char *line, env_t **list, char **env);
 void unset_env(char *line, env_t **list, char **env);
 char *get_path(env_t *list, char **cmd);
 env_t *get_env(env_t *env, char *key);
+void search_node(char *key, env_t **list);
 //Alias
 void set_alias(char *line, env_t **list, char **env);
 char *get_alias(env_t *alias, char *line);
 void exec_alias(env_t **list);
+void unset_alias(char *line, env_t **list, UNUSED char **env);
 
 //Exec
 void exec_binary(env_t **list, char **env, tree_t leaf);

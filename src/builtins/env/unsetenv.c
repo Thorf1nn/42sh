@@ -10,7 +10,7 @@
 static void delete_node(env_t *newlist, env_t *tmp, char *key)
 {
     while (newlist->next != NULL) {
-        if (str_isequal(newlist->next->key, key, 0)) {
+        if (str_isequal(newlist->next->key, key, true)) {
             tmp = newlist->next;
             newlist->next = newlist->next->next;
             free(tmp);
@@ -20,11 +20,11 @@ static void delete_node(env_t *newlist, env_t *tmp, char *key)
     }
 }
 
-static void search_node(char *key, env_t **list)
+void search_node(char *key, env_t **list)
 {
     env_t *tmp = NULL;
 
-    if (str_isequal((*list)->key, key, 0)) {
+    if (str_isequal((*list)->key, key, true)) {
         tmp = *list;
         *list = (*list)->next;
         free(tmp);

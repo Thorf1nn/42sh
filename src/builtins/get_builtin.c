@@ -14,7 +14,8 @@ static const builtin_t builtins[NB_CMDS] = {
     {"exit", &exec_exit},
     {"setenv", &set_env},
     {"unsetenv", &unset_env},
-    {"alias", &set_alias}
+    {"alias", &set_alias},
+    {"unalias", &unset_alias}
 };
 
 builtin_t *get_builtin(char *line)

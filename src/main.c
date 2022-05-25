@@ -28,6 +28,7 @@ int main(int argc, char **argv, char **env)
     if (argc == 2)
         check_flags(argc, argv);
     signal(SIGINT, sign_handler);
+    signal(SIGTSTP, sign_handler);
     p_ntty(HEADER, list);
     while (getline(&line, &len, stdin) != -1)
         if (line)

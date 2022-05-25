@@ -19,6 +19,8 @@ void sign_handler(int sign_num)
         else
             my_putchar('\n');
     }
+    if (sign_num == SIGTSTP)
+        my_putstr(HEADER);
     if (sign_num == SIGINT)
         my_putstr(HEADER);
 }

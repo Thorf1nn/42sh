@@ -44,7 +44,7 @@ void create_tree(tree_t **node, char *line, char **seps)
 
 tree_t *build_tree(char *line)
 {
-    char *seps[7] = {";", ">>", "<<", ">", "<", "|"};
+    char *seps[9] = {";", ">>", "<<", ">", "<", "|", "&&", "||"};
     tree_t *root = NULL;
     char *sline = NULL;
 

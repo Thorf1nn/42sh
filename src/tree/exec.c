@@ -59,18 +59,18 @@ void exec_pipe(builtin_t *builtin, tree_t *tree, env_t *list, char **env)
     pid = fork();
     if (pid == -1)
         return;
-    if (pid == 0) {
-        if (pipe(tree->fd) == -1)
+    if (!pid) {
+        if (pipe((int *) {tree->left->fd, tree->right->fd}) == -1)
             return;
-        close(tree->fd[IN]);
-        dup2(tree->fd[OUT], STDOUT_FILENO);
+        close(tree->left->fd[IN]);
+        dup2(tree->right->fd[OUT], STDOUT_FILENO);
         exec_tree(builtin, list, env, tree->left);
     } else {
-        close(tree->fd[OUT]);
-        dup2(tree->fd[IN], STDIN_FILENO);
+        close(tree->right->fd[OUT]);
+        dup2(tree->left->fd[IN], STDIN_FILENO);
         exec_tree(builtin, list, env, tree->right);
     }
-    closefd(tree->fd);
+    closefd((int *) {tree->left->fd, tree->right->fd});
 }
 
 void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
@@ -85,8 +85,9 @@ void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
         if (!(builtin = get_builtin(tree->cmd)))
             return exec_binary(&list, env, *tree);
         (*(builtin->fptr))(tree->cmd, &list, env);
+        return;
     }
+    exec_tree(builtin, list, env, tree->left);
     if (tree->sep[0] != '<' && tree->sep[0] != '>')
         exec_tree(builtin, list, env, tree->right);
-    exec_tree(builtin, list, env, tree->left);
 }

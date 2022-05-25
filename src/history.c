@@ -7,8 +7,7 @@
 
 #include "my_sh.h"
 
-char strBuff[NB_LINES][MAX_LEN] =
-{
+static const char bufferchar[NB_LINES][MAX_LEN] = {
     "Line 1",
     "Line 2",
     "Line 3",
@@ -31,7 +30,7 @@ int getchh(void)
     return ch;
 }
 
-int print_history(void)
+void print_history(void)
 {
     int i = getchh();
     int j = 0;
@@ -46,14 +45,12 @@ int print_history(void)
         }
         if (i == 27 && j == 91) {
             switch (k) {
-                case 65: clear(); printw("%s", strBuff[cnt]); cnt++;
+                case 65: clear(); printw("%s", bufferchar[cnt]); cnt++;
                 if (cnt >= NB_LINES) cnt = 0; refresh(); break;
-                case 66: clear(); printw("%s", strBuff[cnt]); cnt--;
+                case 66: clear(); printw("%s", bufferchar[cnt]); cnt--;
                 if (cnt < 0) cnt = NB_LINES - 1; refresh(); break;
-                case EOF: return 0; break;
                 default: break;
             }
         }
     }
-    return 0;
 }

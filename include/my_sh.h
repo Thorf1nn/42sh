@@ -35,9 +35,6 @@
     #include <termios.h>
     #include <errno.h>
 
-// History
-extern char strBuff[NB_LINES][MAX_LEN];
-
 typedef struct builtin_s {
     char *cmd;
     void (*fptr) (char *, env_t **env, char **);
@@ -66,7 +63,7 @@ void unset_env(char *line, env_t **list, char **env);
 char *get_path(env_t *list, char **cmd);
 env_t *get_env(env_t *env, char *key);
 //Alias
-void set_alias(char *line, env_t **list, UNUSED char **env);
+void set_alias(char *line, env_t **list, char **env);
 char *get_alias(env_t *alias, char *line);
 void exec_alias(env_t **list);
 
@@ -76,5 +73,8 @@ void exec_cd(char *line, env_t **list, char **env);
 void exec_env(char *line, env_t **list, char **env);
 void exec_pwd(char *line, env_t **list, char **env);
 void exec_exit(char *line, env_t **list, char **env);
+
+//History
+void print_history(void);
 
 #endif /* __MY_SH_H__ */

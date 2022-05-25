@@ -12,8 +12,7 @@ static void print_alias_name(char *key, char *value)
     char **words = strsplit(value, " \t", false);
     int len_words = 0;
 
-    while (words[len_words++]);
-        // my_printf("%s=", words[len_words]);
+    for (; words[len_words]; len_words++);
     if (len_words > 1)
         my_printf("%s\t(%s)\n", key, value);
     else

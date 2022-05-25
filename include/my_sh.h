@@ -70,6 +70,6 @@ void exec_pwd(char *line, env_t **list, int id, char **env);
 void exec_exit(char *line, env_t **list, int id, char **env);
 void exec_alias(char *line, UNUSED env_t **list, int id, UNUSED char **env);
 //History
-int print_history(void);
+void print_history(void);
 
 #endif /* __MY_SH_H__ */

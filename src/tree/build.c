@@ -17,6 +17,8 @@ void add_node(tree_t **tree, char *line, char *sep)
     else
         newNode->sep = NULL;
     newNode->cmd = my_strdup(line);
+    newNode->fd[IN] = STDIN_FILENO;
+    newNode->fd[OUT] = STDOUT_FILENO;
     newNode->left = NULL;
     newNode->right = NULL;
     *tree = newNode;

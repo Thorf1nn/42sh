@@ -50,17 +50,14 @@ void exec_binary(env_t **list, char **env, tree_t leaf)
     int state = 0;
     char **cmd = NULL;
     char *path = NULL;
-    // int fd[2];
 
     if (!check_command(leaf.cmd, &cmd, &path, list))
         return;
     if (!fork()) {
-        // fd[IN] = dup(STDIN_FILENO);
-        // fd[OUT] = dup(STDOUT_FILENO);
         dup2(leaf.fd[IN], STDIN_FILENO);
         dup2(leaf.fd[OUT], STDOUT_FILENO);
+        printf("%d %d\n", leaf.fd[IN], leaf.fd[OUT]);
         state = execve(cmd[0], cmd, env);
-        // closefd(fd);
         closefd(leaf.fd);
         if (state == -1 && path)
             state = execve(path, cmd, env);
@@ -68,8 +65,6 @@ void exec_binary(env_t **list, char **env, tree_t leaf)
             my_printf("%s: Command not found.\n", cmd[0]);
             exit(0);
         }
-        // dup2(STDIN_FILENO, fd[IN]);
-        // dup2(STDOUT_FILENO, fd[OUT]);
     } else {
         wait(&state);
         if (WIFSIGNALED(state))

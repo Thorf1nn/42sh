@@ -14,6 +14,10 @@
     #define EXIT          "exit\n"
     #define NB_CMDS       7
 
+// History
+    #define NB_LINES 5
+    #define MAX_LEN 1000
+
     #include "my.h"
     #include "ncurses.h"
     #include "tree.h"
@@ -30,6 +34,16 @@
     #include <signal.h>
     #include <termios.h>
     #include <errno.h>
+
+// History
+const char strBuff[NB_LINES][MAX_LEN] =
+{
+    "Line 1",
+    "Line 2",
+    "Line 3",
+    "Line 4",
+    "Line 5"
+};
 
 typedef struct builtin_s {
     char *cmd;

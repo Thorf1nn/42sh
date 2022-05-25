@@ -1,59 +1,52 @@
 #!/usr/bin/env ruby
 
-def print_in_color txt, color, line_break
-    color = "\033[0;30m" if color == 'black'
-    color = "\033[0;31m" if color == 'red'
-    color = "\033[0;32m" if color == 'green'
-    color = "\033[0;33m" if color == 'yellow'
-    color = "\033[0;34m" if color == 'blue'
-    color = "\033[0;35m" if color == 'purple'
-    color = "\033[0;36m" if color == 'cyan'
-    color = "\033[0;37m" if color == 'white'
-    printf("#{color}");
-    puts  txt if line_break == true
-    print txt if line_break == false
-    printf("\033[0m");
+require_relative "tests/test_lib/print_in_color"
+require_relative "tests/test"
+PUSH_QUIET = '> temp.log 2> temp.log'
+
+# Execute tests:
+if test_42sh(false) == false
+    print_in_color("| !!! Tests failed, abort push !!!\n", "red")
+    exit 84
 end
 
+# Check arguments:
 if ARGV.size >= 1
     msg = ARGV[0]
 else
     msg = "continue/update -> functions"
 end
 
-system "make fclean"
-system "clear"
-print_in_color("|-> GIT PUSH:", "green", true)
-print_in_color("| MSG = \"", "green", false)
-print_in_color("#{msg}", "purple", false)
-print_in_color("\"", "green", true)
-print_in_color("| loading ...", "green", true)
+# Print loading message:
+system "make fclean && clear"
+print_in_color("|-> GIT PUSH:\n", "yellow")
+print_in_color("| MSG = \"", "yellow")
+print_in_color("#{msg}", "purple")
+print_in_color("\"\n", "yellow")
+print_in_color("| loading ...\n", "yellow")
 
-time = Time.new
-system "echo \"#{time.inspect}:\" >> push_fail.log"
+# Git add all midified files:
+print_in_color("| add all modified files : ", "yellow")
+system "git add * #{PUSH_QUIET}"
+print_in_color("success !\n", "green")
 
-# START
-print_in_color("| add all modified files : ", "green", false)
-system "git add * > temp.log 2>> push_fail.log"
-print_in_color("success !", "cyan", true)
+# Git commit whit selected message:
+print_in_color("| commit with the following message \"", "yellow")
+print_in_color("#{msg}", "purple")
+print_in_color("\" : ", "yellow")
+system "git commit -m \"#{msg}\" #{PUSH_QUIET}"
+print_in_color("success !\n", "green")
 
-print_in_color("| commit with the following message \"", "green", false)
-print_in_color("#{msg}", "purple", false)
-print_in_color("\" : ", "green", false)
-system "git commit -m \"#{msg}\" > temp.log 2>> push_fail.log"
-print_in_color("success !", "cyan", true)
+# Git pull if needed:
+print_in_color("| check git repertory and pull if needed : ", "yellow")
+system "git pull #{PUSH_QUIET}"
+print_in_color("success !\n", "green")
 
-print_in_color("| check git repertory and pull if needed : ", "green", false)
-system "git pull > temp.log 2>> push_fail.log"
-print_in_color("success !", "cyan", true)
+# Git push all:
+print_in_color("| push : ", "yellow")
+system "git push #{PUSH_QUIET}"
+print_in_color("success !\n", "green")
 
-print_in_color("| push : ", "green", false)
-system "git push > temp.log 2>> push_fail.log"
-print_in_color("success !", "cyan", true)
-# END
-
-print_in_color("| FINISHED !", "green", true)
-
-system "echo \"\n\" >> push_fail.log"
-
-system "rm -rf temp.log && rm -rf push_fail.log"
+# Finish and remove log file if success:
+print_in_color("| FINISHED !\n", "yellow")
+system "rm -rf temp.log"

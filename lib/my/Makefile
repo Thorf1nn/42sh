@@ -11,7 +11,6 @@ LIB_SRC		= 	$(wildcard *.c) \
 				$(wildcard math/*.c) \
 				$(wildcard print/*.c) \
 				$(wildcard utils/*.c) \
-				$(wildcard print/my_printf/*.c)
 
 LIB_OBJ 	= 	$(LIB_SRC:.c=.o)
 

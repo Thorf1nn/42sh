@@ -62,7 +62,7 @@ void exec_binary(env_t **list, char **env, tree_t leaf)
         if (state == -1 && path)
             state = execve(path, cmd, env);
         if (state == -1) {
-            my_printf("%s: Command not found.\n", cmd[0]);
+            fprintf(stderr, "%s: Command not found.\n", cmd[0]);
             exit(0);
         }
     } else {

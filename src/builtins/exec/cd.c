@@ -33,7 +33,7 @@ static void cd_path(char *fenv, char **cmd, env_t **list)
         return;
     }
     if (chdir(cmd[1]) == -1) {
-        my_printf("%s : %s.\n", cmd[1], strerror(errno));
+        fprintf(stderr, "%s : %s.\n", cmd[1], strerror(errno));
         return;
     }
     update_pwd(list, old_pwd);

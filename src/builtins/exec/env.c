@@ -14,7 +14,7 @@ void exec_env(UNUSED char *line, env_t **list, UNUSED char **env)
     tmp = tmp->next;
     while (tmp) {
         if (tmp->id == ENV)
-            my_printf("%s=%s\n", tmp->key, tmp->value);
+            printf("%s=%s\n", tmp->key, tmp->value);
         tmp = tmp->next;
     }
     p_ntty(HEADER, *list);

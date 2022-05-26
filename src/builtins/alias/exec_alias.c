@@ -14,9 +14,9 @@ static void print_alias_name(char *key, char *value)
 
     for (; words[len_words]; len_words++);
     if (len_words > 1)
-        my_printf("%s\t(%s)\n", key, value);
+        printf("%s\t(%s)\n", key, value);
     else
-        my_printf("%s\t%s\n", key, value);
+        printf("%s\t%s\n", key, value);
 }
 
 void exec_alias(env_t **list)

@@ -71,13 +71,4 @@ int my_putnbr_longbase(unsigned long int nbr, char const *base);
 int my_putstr_printable(char const *str);
 void my_put_address(char *pointer);
 
-//Only for printf
-void detect_flags_chars(char *flags, va_list ap, int i);
-int detect_flags_int(char *flags, va_list ap, int i, int arg);
-int detect_flags_op(char *flags, va_list ap, int i, int arg);
-void detect_hashflags(char *flags, int i);
-int detect_flags_sub_add(char *flags, va_list ap, int i, int arg);
-int detect_flags_zero(char *flags, va_list ap, int i, int arg);
-void write_space_or_zero(int count, int boel);
-
 #endif /* __MY_H__ */

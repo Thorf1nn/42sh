@@ -13,8 +13,8 @@ void edit_venv(char *kenv, env_t **env, char *nwvenv)
     env_t *tmp = *env;
 
     if (!venv) {
-        my_putstr("Out of memory\n");
-        exit(0);
+        fprintf(stderr, "Out of memory\n");
+        exit(84);
     }
     while (tmp && !str_isequal(tmp->key, kenv, true))
         tmp = tmp->next;

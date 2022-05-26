@@ -12,7 +12,7 @@ static void update_pwd(env_t **list, char *old_pwd)
     char *pwd = malloc(sizeof(char) * 1024);
 
     if (!pwd) {
-        my_putstr("Out of memory\n");
+        fprintf(stderr, "Out of memory\n");
         exit(0);
     }
     edit_venv("OLDPWD", list, old_pwd);
@@ -24,7 +24,7 @@ static void cd_path(char *fenv, char **cmd, env_t **list)
     char old_pwd[1024];
 
     if (!fenv) {
-        my_putstr("cd: Command not found.\n");
+        fprintf(stderr, "cd: Command not found.\n");
         return;
     }
     getcwd(old_pwd, sizeof(old_pwd));
@@ -44,9 +44,9 @@ static void cd_list(char **cmd, env_t **list)
     char *fenv = malloc(sizeof(char) * 1024);
     char *kenv = NULL;
 
-    if (!cmd[1] || str_isequal(cmd[1], "~", 1))
+    if (!cmd[1] || str_isequal(cmd[1], "~", true))
         kenv = "HOME";
-    if (str_isequal(cmd[1], "-", 1))
+    if (str_isequal(cmd[1], "-", true))
         kenv = "OLDPWD";
     if (kenv)
         fenv = find_env(kenv, *list);
@@ -60,7 +60,7 @@ void exec_cd(char *line, env_t **list, UNUSED char **env)
 
     for (len_cmd = 0; cmd[len_cmd]; len_cmd++);
     if (len_cmd > 2) {
-        my_putstr("cd: Too many arguments.\n");
+        fprintf(stderr, "cd: Too many arguments.\n");
         p_ntty(HEADER, *list);
         return;
     }

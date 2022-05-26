@@ -11,11 +11,11 @@ void sign_handler(int sign_num)
 {
     if (WIFSIGNALED(sign_num)) {
         if (WTERMSIG(sign_num) == SIGFPE)
-            my_putstr("Floating exception");
+            fprintf(stderr, "%s", "Floating exception");
         else
-            my_putstr(strsignal(sign_num));
+            fprintf(stderr, "%s", strsignal(sign_num));
         if (WCOREDUMP(sign_num))
-            my_putstr(" (core dumped)\n");
+            fprintf(stderr, " (core dumped)\n");
         else
             my_putchar('\n');
     }

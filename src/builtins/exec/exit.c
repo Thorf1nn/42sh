@@ -20,7 +20,7 @@ void exec_exit(char *line, env_t **list, UNUSED char **env)
             val_exit = my_getnbr(cmd[1]);
             exit(val_exit);
         }
-        my_putstr("exit: Expression Syntax.\n");
+        fprintf(stderr, "exit: Expression Syntax.\n");
         return;
     }
     p_ntty(EXIT, *list);

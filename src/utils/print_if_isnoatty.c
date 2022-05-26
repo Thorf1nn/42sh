@@ -60,7 +60,7 @@ void p_ntty(char const *output, env_t *list)
     if (!isatty(STDIN_FILENO))
         return;
     if (str_isequal(output, "exit\n", true)) {
-        my_putstr(output);
+        printf("%s", output);
         return;
     }
     printf("\033[0;31m");

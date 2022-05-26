@@ -27,7 +27,7 @@ char *get_path(env_t *list, char **cmd)
             return NULL;
     }
     if (access(acs, X_OK) == -1)
-        my_putstr("Permission denied\n");
+        fprintf(stderr, "Permission denied\n");
     return acs;
 }
 

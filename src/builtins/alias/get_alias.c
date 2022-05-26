@@ -17,11 +17,12 @@ char *get_alias(env_t *alias, char *line)
         line += 1;
     if (!(*line))
         return NULL;
-    for (; alias; alias = alias->next)
-        if (alias->id == ALIAS && str_isequal(alias->key, line, false)) {
+    for (; alias; alias = alias->next) {
+        if (alias->id == ALIAS && str_isequal(line, alias->key, false)) {
             line += my_strlen(alias->key);
             dest = strcat_alloc(alias->value, line);
             return dest;
         }
+    }
     return line;
 }

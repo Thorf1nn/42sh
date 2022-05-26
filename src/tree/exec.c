@@ -45,7 +45,7 @@ static void redirection(tree_t *tree)
     if (str_isequal(tree->sep, ">>", true))
         tree->left->fd[OUT] = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
     if (tree->left->fd[IN] == -1 || tree->left->fd[OUT] == -1)
-        my_putstr("Error: cannot open file\n");
+        fprintf(stderr, "Error: cannot open file\n");
 }
 
 void exec_pipe(builtin_t *builtin, tree_t *tree, env_t *list, char **env)

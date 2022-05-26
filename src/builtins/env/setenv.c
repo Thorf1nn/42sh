@@ -10,17 +10,17 @@
 static bool error_handling(char **cmd, int len_cmd)
 {
     if (len_cmd > 3) {
-        my_putstr("setenv: Too many arguments.\n");
+        fprintf(stderr, "setenv: Too many arguments.\n");
         return true;
     }
     if (cmd[1][0] < 'A' || cmd[1][0] > 'z' ||
     (cmd[1][0] > 'Z' && cmd[1][0] < 'a')) {
-        my_putstr("setenv: Variable name must begin with a letter.\n");
+        fprintf(stderr, "setenv: Variable name must begin with a letter.\n");
         return true;
     }
     if (!my_str_isalpha_numeric(cmd[1])) {
-        my_putstr("setenv: Variable name must ");
-        my_putstr("contain alphanumeric characters.\n");
+        fprintf(stderr, "setenv: Variable name must ");
+        fprintf(stderr, "contain alphanumeric characters.\n");
         return true;
     }
     return false;

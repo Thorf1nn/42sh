@@ -20,6 +20,7 @@
 
     #include "my.h"
     #include "ncurses.h"
+    #include "inhibitors.h"
     #include "tree.h"
     #include "env.h"
     #include <unistd.h>

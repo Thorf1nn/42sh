@@ -15,4 +15,6 @@ typedef struct inhibitors_s {
     int j;
 } inhibitors_t;
 
+void fix_space_inhibitors(inhibitors_t *ibt, int i);
+
 #endif

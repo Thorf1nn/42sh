@@ -27,8 +27,7 @@ static void complex_sorting(inhibitors_t *ibt, char *str)
     else if (str[ibt->i + 1] == '\\' && str[ibt->i + 2] == '\\') {
         ibt->new_str[ibt->j] = '\\';
         ibt->j++;
-    }
-    else {
+    } else {
         ibt->new_str[ibt->j] = ' ';
         ibt->j++;
     }
@@ -59,7 +58,6 @@ static char *process_loop(inhibitors_t *ibt, char *str)
     return ibt->new_str;
 }
 
-
 char *process_inhibitors(char *str)
 {
     inhibitors_t *ibt = malloc(sizeof(inhibitors_t));
@@ -73,7 +71,6 @@ char *process_inhibitors(char *str)
     ibt->new_str[ibt->j] = '\0';
     for (int i = 0; i < my_strlen(ibt->new_str); i++)
         if (ibt->new_str[i] == ' ' && ibt->new_str[i + 1] == ' ')
-            for (ibt->j = i; ibt->j < my_strlen(ibt->new_str); ibt->j++)
-                ibt->new_str[ibt->j] = ibt->new_str[ibt->j + 1];
+            fix_space_inhibitors(ibt, i);
     return ibt->new_str;
 }

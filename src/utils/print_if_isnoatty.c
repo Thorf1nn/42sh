@@ -39,8 +39,24 @@ static void display_username(env_t *list)
     printf(":☘ ");
 }
 
+static bool re_init(bool *go_print, char const *output)
+{
+    if (*go_print)
+        return false;
+    if (output[0] == 'i')
+        *go_print = true;
+    return *go_print;
+}
+
 void p_ntty(char const *output, env_t *list)
 {
+    static bool go_print = true;
+
+    if (re_init(&go_print, output))
+        return;
+    if (!go_print)
+        return;
+    go_print = false;
     if (!isatty(STDIN_FILENO))
         return;
     if (str_isequal(output, "exit\n", true)) {

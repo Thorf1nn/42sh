@@ -30,9 +30,11 @@ int main(int argc, char **argv, char **env)
     signal(SIGINT, sign_handler);
     signal(SIGTSTP, sign_handler);
     p_ntty(HEADER, list);
-    while (getline(&line, &len, stdin) != -1)
+    while (getline(&line, &len, stdin) != -1) {
+        p_ntty("init", NULL);
         if (line)
             on_process(builtin, list, line, env);
+    }
     p_ntty(EXIT, list);
     free(line);
     return 0;

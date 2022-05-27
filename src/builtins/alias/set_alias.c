@@ -31,7 +31,7 @@ void set_alias(char *line, env_t **list, UNUSED char **env)
         return;
     }
     if (len_cmd >= 3 && str_isequal(cmd[1], "alias", true)) {
-        printf("alias: Too dangerous to alias that.\n");
+        fprintf(stderr, "alias: Too dangerous to alias that.\n");
         p_ntty(HEADER, *list);
         return;
     }

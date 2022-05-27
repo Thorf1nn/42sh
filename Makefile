@@ -16,7 +16,8 @@ SRC 		=	$(wildcard src/*.c) \
 				$(wildcard src/builtins/exec/*.c) \
 				$(wildcard src/inhibitors/*.c) \
 				$(wildcard src/tree/*.c) \
-				$(wildcard src/ncurses/*.c)
+				$(wildcard src/ncurses/*.c) \
+				$(wildcard src/builtins/globbing/*.c)
 
 OSRC 		=	$(wildcard lib/my/*.c) \
 

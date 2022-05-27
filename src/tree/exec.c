@@ -79,6 +79,9 @@ void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
         return;
     if (str_isequal(tree->sep, "|", true))
         return exec_pipe(builtin, tree, list, env);
+    if (str_isequal(tree->sep, "*", true) || str_isequal(tree->sep, "?", true)
+    || str_isequal(tree->sep, "]", true) || str_isequal(tree->sep, "[", true))
+        return my_globbing(tree->cmd, list);
     if (tree->sep)
         redirection(tree);
     if (!tree->sep && tree->cmd) {

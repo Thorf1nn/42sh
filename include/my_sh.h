@@ -35,6 +35,7 @@
     #include <signal.h>
     #include <termios.h>
     #include <errno.h>
+    #include <glob.h>
 
 typedef struct builtin_s {
     char *cmd;
@@ -69,6 +70,9 @@ void set_alias(char *line, env_t **list, char **env);
 char *get_alias(env_t *alias, char *line);
 void exec_alias(env_t **list);
 void unset_alias(char *line, env_t **list, UNUSED char **env);
+
+//Globbing
+void my_globbing(char *line, env_t *list);
 
 //Exec
 void exec_binary(env_t **list, char **env, tree_t leaf);

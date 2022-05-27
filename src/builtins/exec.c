@@ -69,7 +69,7 @@ void exec_binary(env_t **list, char **env, tree_t leaf)
     if (leaf.cmd[my_strlen(leaf.cmd) - 1] == '&' &&
     leaf.cmd[my_strlen(leaf.cmd) - 2] != '&') {
         leaf.cmd[my_strlen(leaf.cmd) - 1] = '\0';
-        *cmd = strsplit(leaf.cmd, " \t", false);
+        cmd = strsplit(leaf.cmd, " \t", false);
         if (check_jobs(&cmd, &path, list, env))
             return;
     }

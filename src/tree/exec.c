@@ -56,6 +56,13 @@ void exec_pipe(builtin_t *builtin, tree_t *tree, env_t *list, char **env)
     closefd(fd);
 }
 
+static void do_and_stuff(char **env, tree_t *tree, env_t *list)
+{
+    printf("Yo !\n");
+    p_ntty(HEADER, list);
+    return;
+}
+
 void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
 {
     if (!tree)
@@ -67,6 +74,8 @@ void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
         return my_globbing(tree->cmd, list);
     if (tree->sep)
         redirection(tree);
+    if (str_isequal(tree->sep, "&&", true))
+        return do_and_stuff(tree, env, list);
     if (!tree->sep && tree->cmd) {
         tree->cmd = get_alias(list, tree->cmd);
         if (!(builtin = get_builtin(tree->cmd)))

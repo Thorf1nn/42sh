@@ -45,6 +45,19 @@ static bool check_command(char *line, char ***cmd, char **path, env_t **list)
     return true;
 }
 
+static bool check_jobs(char ***cmd, char **path, env_t **list, char **env)
+{
+    static int i = 0;
+    pid_t pid;
+    *path = get_path(*list, *cmd);
+    printf("[%d] %d\n", i, getpid());
+    pid = fork();
+    if (pid == 0)
+        execve(*path, *cmd, env);
+    i++;
+    return true;
+}
+
 void exec_binary(env_t **list, char **env, tree_t leaf)
 {
     int state = 0;
@@ -53,6 +66,13 @@ void exec_binary(env_t **list, char **env, tree_t leaf)
 
     if (!check_command(leaf.cmd, &cmd, &path, list))
         return;
+    if (leaf.cmd[my_strlen(leaf.cmd) - 1] == '&' &&
+    leaf.cmd[my_strlen(leaf.cmd) - 2] != '&') {
+        leaf.cmd[my_strlen(leaf.cmd) - 1] = '\0';
+        *cmd = strsplit(leaf.cmd, " \t", false);
+        if (check_jobs(&cmd, &path, list, env))
+            return;
+    }
     if (!fork()) {
         dup2(leaf.fd[IN], STDIN_FILENO);
         dup2(leaf.fd[OUT], STDOUT_FILENO);

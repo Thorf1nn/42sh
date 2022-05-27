@@ -14,10 +14,12 @@ bool str_isequal(char const *from, char const *to, bool strict)
     if (!from || !to)
         return false;
     while (from[i] && to[i]) {
-        if (from[i] != to[i] || !to[i])
+        if (from[i] != to[i])
             return false;
         i++;
     }
+    if (to[i])
+        return false;
     if (strict)
         return from[i] == to[i];
     return true;

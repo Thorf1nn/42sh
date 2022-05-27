@@ -30,6 +30,11 @@ void set_alias(char *line, env_t **list, UNUSED char **env)
         p_ntty(HEADER, *list);
         return;
     }
+    if (len_cmd >= 3 && str_isequal(cmd[1], "alias", true)) {
+        printf("alias: Too dangerous to alias that.\n");
+        p_ntty(HEADER, *list);
+        return;
+    }
     if (len_cmd >= 3)
         add_node_at_back(cmd[1], line, ALIAS, list);
     p_ntty(HEADER, *list);

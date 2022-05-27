@@ -57,6 +57,8 @@ void p_ntty(char const *output, env_t *list)
     if (!go_print)
         return;
     go_print = false;
+    if (output[0] == 'i')
+        return;
     if (!isatty(STDIN_FILENO))
         return;
     if (str_isequal(output, "exit\n", true)) {

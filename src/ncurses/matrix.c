@@ -38,7 +38,7 @@ void write_line(curse_t *curse, int ascii_range)
     curse->ascii_char = rand() % ascii_range;
     mvaddch(curse->basey, curse->base5x, curse->ascii_char);
     curse->ascii_char = rand() % ascii_range;
-	attroff(COLOR_PAIR(1));
+    attroff(COLOR_PAIR(1));
 }
 
 void writecolumn(int ascii_range)
@@ -50,15 +50,15 @@ void writecolumn(int ascii_range)
 	ncurses_input();
     start.tv_sec = 0;
     for (int counter = 0; counter < curse->vertical_length ;counter++) {
-       start.tv_nsec = 30000000;
+        start.tv_nsec = 30000000;
         curse->ascii_char = rand() % ascii_range;
-		write_line(curse, ascii_range);
-       	refresh();
-       	if (nanosleep(&start, &end) < 0)
-        	exit_ncurses();
-       curse->basey++;
-		if (curse->basey > LINES)
-			break;
+        write_line(curse, ascii_range);
+        refresh();
+        if (nanosleep(&start, &end) < 0)
+            exit_ncurses();
+        curse->basey++;
+        if (curse->basey > LINES)
+            break;
     }
 }
 

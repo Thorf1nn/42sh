@@ -26,7 +26,7 @@ void exec_alias(env_t **list)
     tmp = tmp->next;
     while (tmp) {
         if (tmp->id == ALIAS)
-            print_alias_name(tmp->key,tmp->value);
+            print_alias_name(tmp->key, tmp->value);
         tmp = tmp->next;
     }
     p_ntty(HEADER, *list);

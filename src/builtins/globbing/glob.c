@@ -11,11 +11,11 @@ int globbing_error(char **cmd, env_t *list, int r)
 {
     if (r != 0) {
         if (r == GLOB_NOMATCH) {
-            fprintf(stderr,"%s: No match.\n", cmd[0]);
+            fprintf(stderr, "%s: No match.\n", cmd[0]);
             p_ntty(HEADER, list);
             return 1;
         } else {
-            fprintf(stderr,"Some kinda glob error\n");
+            fprintf(stderr, "Some kinda glob error\n");
             p_ntty(HEADER, list);
             return 1;
         }
@@ -33,7 +33,7 @@ void my_globbing(char *line, env_t *list)
     if (globbing_error(cmd, list, r) == 1)
         return;
     found = gstruct.gl_pathv;
-    while(*found != NULL) {
+    while (*found != NULL) {
         printf("%s\t", *found);
         found++;
     }

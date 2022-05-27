@@ -6,7 +6,6 @@
 */
 
 #include "my_sh.h"
-
 // exemple: set value of 'PWD': get_env("PWD", env)->data = ...
 env_t *get_env(env_t *env, char *key)
 {

@@ -7,7 +7,7 @@
 
 #include "my_sh.h"
 
-static void lauch_ncurses()
+static void lauch_ncurses(void)
 {
     if (isatty(STDIN_FILENO))
         create_ncurses();

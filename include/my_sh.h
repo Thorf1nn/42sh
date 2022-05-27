@@ -68,6 +68,8 @@ void unset_env(char *line, env_t **list, char **env);
 char *get_path(env_t *list, char **cmd);
 env_t *get_env(env_t *env, char *key);
 void search_node(char *key, env_t **list);
+bool check_line(char *line, char ***cmd, char **path,
+env_t **list, char **env);
 
 //Alias
 void set_alias(char *line, env_t **list, char **env);

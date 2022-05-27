@@ -42,10 +42,11 @@ typedef struct builtin_s {
 } builtin_t;
 
 builtin_t *get_builtin(char *line);
-
+void redirection(tree_t *tree);
 //Tree
 tree_t *build_tree(char *line);
 void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree);
+
 //Utils
 char *sort_sep(char *str, char *sep);
 void my_putstrerr(char const *str);
@@ -55,6 +56,8 @@ void p_ntty(char const *output, env_t *list);
 void sign_handler(int sign_num);
 void add_node_at_back(char *key, char *value, int id, env_t **node);
 void check_flags(int ac, char **av);
+char *read_file(char *path, int *fd);
+
 //Env
 env_t *init_env(char **env);
 void edit_venv(char *kenv, env_t **env, char *nwvenv);
@@ -64,6 +67,7 @@ void unset_env(char *line, env_t **list, char **env);
 char *get_path(env_t *list, char **cmd);
 env_t *get_env(env_t *env, char *key);
 void search_node(char *key, env_t **list);
+
 //Alias
 void set_alias(char *line, env_t **list, char **env);
 char *get_alias(env_t *alias, char *line);

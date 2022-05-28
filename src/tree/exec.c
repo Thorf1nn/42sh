@@ -80,11 +80,14 @@ static int do_and_stuff(char **env, tree_t *tree, char *cmd, env_t *list)
         return 0;
     if (cmd == NULL) {
         for (; ls->sep != NULL; ls = ls->right)
-            do_and_stuff(env, tree, ls->left->cmd, list);
-        do_and_stuff(env, tree, ls->cmd, list);
+            do_and_stuff(\
+            env, tree, ls->left->cmd == NULL ? "" : ls->left->cmd, list);
+        do_and_stuff(env, tree, ls->cmd == NULL ? "" : ls->cmd, list);
         stat = 0;
         return 0;
     }
+    if (strlen(cmd) == 0)
+        return 0;
     cmd_tab = strsplit(cmd, " \t", false);
     path = get_path(list, cmd_tab);
     exe_and_stuff(env, cmd_tab, path, &stat);

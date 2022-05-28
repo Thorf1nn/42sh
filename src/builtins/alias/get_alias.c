@@ -20,7 +20,7 @@ char *get_alias(env_t *alias, char *line)
     for (; alias; alias = alias->next) {
         if (alias->id == ALIAS && str_isequal(line, alias->key, false)
         && (ch_isequal(line[my_strlen(alias->key)], " \t\n")
-        || line[my_strlen(alias->key)] == '\0')) {
+        || !line[my_strlen(alias->key)])) {
             line += my_strlen(alias->key);
             dest = strcat_alloc(alias->value, line);
             return dest;

@@ -11,7 +11,7 @@ int globbing_error(char **cmd, env_t *list, int r)
 {
     if (r != 0) {
         if (r == GLOB_NOMATCH) {
-            fprintf(stderr,"%s: No match.\n", cmd[0]);
+            fprintf(stderr, "%s: No match.\n", cmd[0]);
             p_ntty(HEADER, list);
             return 1;
         } else {

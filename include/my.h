@@ -39,6 +39,7 @@ char *strsorted(char *str, char *cut, bool word);
 
 // Array
 char **strsplit(char *str, char *cut, bool word);
+int my_len_tab(char **tab);
 
 // Condition
 bool ch_isequal(char ch, char const *container);

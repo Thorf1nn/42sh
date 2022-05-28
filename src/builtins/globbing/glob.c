@@ -15,7 +15,7 @@ int globbing_error(char **cmd, env_t *list, int r)
             p_ntty(HEADER, list);
             return 1;
         } else {
-            fprintf(stderr,"Some kinda glob error\n");
+            fprintf(stderr,"%s: Some kinda glob error.\n", cmd[0]);
             p_ntty(HEADER, list);
             return 1;
         }
@@ -26,17 +26,22 @@ int globbing_error(char **cmd, env_t *list, int r)
 void my_globbing(char *line, env_t *list)
 {
     char **found;
-    char **cmd = strsplit(line, " \t", false);
     glob_t gstruct;
-    int r = glob(cmd[1], GLOB_ERR , NULL, &gstruct);
+    char **cmd = strsplit(line, " \t", true);
+    int r = 0;
+    int i = 0;
 
+    for (int i = 0; cmd[i]; i += 1)
+        r = glob(cmd[i], GLOB_ERR, NULL, &gstruct);
     if (globbing_error(cmd, list, r) == 1)
         return;
     found = gstruct.gl_pathv;
-    while(*found != NULL) {
-        printf("%s\t", *found);
-        found++;
+    cmd[my_len_tab(cmd) - 1] = NULL;
+    cmd = realloc(cmd, sizeof(char *) * (my_len_tab(cmd) +
+    my_len_tab(found) + 1));
+    for (int i = my_len_tab(cmd); *found; i++) {
+        cmd[i] = *found;
+        found += 1;
     }
-    printf("\n");
-    p_ntty(HEADER, list);
+    cmd[i] = NULL;
 }

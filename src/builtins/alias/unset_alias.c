@@ -15,7 +15,7 @@ void unset_alias(char *line, env_t **list, UNUSED char **env)
     line += find_word(line, cmd[2]);
     for (len_cmd = 0; cmd[len_cmd]; len_cmd += 1);
     if (len_cmd < 2) {
-        printf("unalias: Too few arguments.\n");
+        fprintf(stderr, "unalias: Too few arguments.\n");
         p_ntty(HEADER, *list);
         return;
     }

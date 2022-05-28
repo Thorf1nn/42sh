@@ -15,6 +15,12 @@ static void wait_exec(int state, env_t **list)
         p_ntty(HEADER, *list);
 }
 
+static void apply_inhibitors(char **cmd)
+{
+    for (int i = 0; cmd[i] != NULL; i++)
+        cmd[i] = process_inhibitors(cmd[i]);
+}
+
 void exec_binary(env_t **list, char **env, tree_t leaf)
 {
     int state = 0;
@@ -23,10 +29,10 @@ void exec_binary(env_t **list, char **env, tree_t leaf)
 
     if (check_line(leaf.cmd, &cmd, &path, list, env))
         return;
+    apply_inhibitors(cmd);
     if (!fork()) {
         dup2(leaf.fd[IN], STDIN_FILENO);
         dup2(leaf.fd[OUT], STDOUT_FILENO);
-        printf("%d %d\n", leaf.fd[IN], leaf.fd[OUT]);
         state = execve(cmd[0], cmd, env);
         closefd(leaf.fd);
         if (state == -1 && path)

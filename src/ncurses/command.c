@@ -12,5 +12,5 @@ void ncurses_input(void)
     int input = getch();
 
     if (input == 27)
-    	exit_ncurses();
+        exit_ncurses();
 }

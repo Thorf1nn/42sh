@@ -7,19 +7,19 @@
 
 #include "my_sh.h"
 
-char *sort_sep(char *str, char *sep)
+char *sort_seps(char *str, char **seps)
 {
     int i = 0;
     int j = 0;
     char *str_sorted = malloc(sizeof(char) * (my_strlen(str) + 1));
 
-    while (ch_isequal(*str, sep) && *str)
+    while (ch_isequal(*str, *seps) && *str)
         str += 1;
     while (str[i]) {
-        while (i > 1 && ch_isequal(str[i], sep))
+        while (i > 1 && ch_isequal(str[i], *seps))
             i++;
-        if (i > 1 && ch_isequal(str[i - 1], sep))
-            str_sorted[j++] = *sep;
+        if (i > 1 && ch_isequal(str[i - 1], *seps))
+            str_sorted[j++] = *seps[0];
         str_sorted[j++] = str[i];
         if (str[i])
             i++;

@@ -49,7 +49,7 @@ tree_t *build_tree(char *line);
 void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree);
 
 //Utils
-char *sort_sep(char *str, char *sep);
+char *sort_seps(char *str, char **seps);
 void my_putstrerr(char const *str);
 int my_str_isalpha_numeric(const char *str);
 void closefd(int *fd);

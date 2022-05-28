@@ -51,7 +51,7 @@ tree_t *build_tree(char *line)
     tree_t *root = NULL;
     char *sline = NULL;
 
-    sline = sort_sep(line, seps[0]);
+    sline = sort_seps(line, seps);
     create_tree(&root, sline, seps);
     return root;
 }

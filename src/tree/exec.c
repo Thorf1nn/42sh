@@ -109,6 +109,8 @@ void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
         redirection(tree);
     if (str_isequal(tree->sep, "&&", true))
         return do_and_stuff(env, tree, NULL, list) ? 0 : p_ntty(HEADER, list);
+    if (str_isequal(tree->sep, "||", true))
+        return do_or_stuff(env, tree, NULL, list) ? 0 : p_ntty(HEADER, list);
     if (!tree->sep && tree->cmd) {
         tree->cmd = get_alias(list, tree->cmd);
         if (!(builtin = get_builtin(tree->cmd)))

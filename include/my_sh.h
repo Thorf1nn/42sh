@@ -90,4 +90,7 @@ void exec_exit(char *line, env_t **list, char **env);
 //History
 void print_history(void);
 
+// OR
+int do_or_stuff(char **env, tree_t *tree, char *cmd, env_t *list);
+
 #endif /* __MY_SH_H__ */

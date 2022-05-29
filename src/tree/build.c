@@ -46,12 +46,16 @@ void create_tree(tree_t **node, char *line, char **seps)
 
 tree_t *build_tree(char *line)
 {
-    char *seps[13] = {";", ">>", "<<", ">", "<", "|", "&&", "||", "*", "?",\
+    char *seps[13] = {";", "&&", "||", ">>", "<<", ">", "<", "|", "*", "?",\
     "]", "["};
     tree_t *root = NULL;
     char *sline = NULL;
 
     sline = sort_seps(line, seps);
+    if (!sline) {
+        p_ntty(HEADER, NULL);
+        return NULL;
+    }
     create_tree(&root, sline, seps);
     return root;
 }

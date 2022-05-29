@@ -7,29 +7,6 @@
 
 #include "my_sh.h"
 
-/*----------------------------------------------------------------
-Pipe -> int [2]
-FD_IN = STDIN pour ta premiere commande
-FD_OUT = STDOUT pour la derniere commande
-
-et FD_OUT = pipe[1]
-sinon FD_IN = pipe[0]
-
-ls | cat -e
-
-ls = STDIN // pipe[1]
-
-cat -e = pipe[0] / STDOUT
-
-
-
-ls | grep lib | cat -e
-
-ls = STDIN // pipe[1]
-grep lib = pipe[0] // new_pipe[1]
-cat -e = new_pipe[0] / STDOUT
-*/
-
 void exec_pipe(builtin_t *builtin, tree_t *tree, env_t *list, char **env)
 {
     pid_t pid;
@@ -43,17 +20,14 @@ void exec_pipe(builtin_t *builtin, tree_t *tree, env_t *list, char **env)
             perror("pipe");
             exit(84);
         }
-        tree->left->fd[IN] = fd[IN];
-        tree->right->fd[OUT] = fd[OUT];
-        close(tree->left->fd[IN]);
-        dup2(tree->right->fd[OUT], STDOUT_FILENO);
+        tree->right->fd[IN] = fd[IN];
+        tree->left->fd[OUT] = fd[OUT];
         exec_tree(builtin, list, env, tree->left);
-    } else {
-        close(tree->right->fd[OUT]);
-        dup2(tree->left->fd[IN], STDIN_FILENO);
         exec_tree(builtin, list, env, tree->right);
+        closefd(fd);
+        exit(0);
     }
-    closefd(fd);
+    p_ntty(HEADER, list);
 }
 
 static void exe_and_stuff(char **env, char **cmd, char *path, int *stat)
@@ -75,7 +49,6 @@ static int do_and_stuff(char **env, tree_t *tree, char *cmd, env_t *list)
     char **cmd_tab = NULL;
     char *path = NULL;
     static int stat = 0;
-
     if (stat)
         return 0;
     if (cmd == NULL) {
@@ -94,23 +67,28 @@ static int do_and_stuff(char **env, tree_t *tree, char *cmd, env_t *list)
     return 0;
 }
 
+static void globbs(tree_t *tree, env_t *list)
+{
+    if (str_isequal(tree->sep, "*", true) || str_isequal(tree->sep, "?", true)
+    || str_isequal(tree->sep, "[", true) || str_isequal(tree->sep, "]", 1)) {
+        my_globbing(tree->cmd, list);
+        return;
+    }
+    if (tree->sep)
+        redirection(tree);
+}
+
 void exec_tree(builtin_t *builtin, env_t *list, char **env, tree_t *tree)
 {
     if (!tree)
         return;
     if (str_isequal(tree->sep, "|", true))
         return exec_pipe(builtin, tree, list, env);
-    if (str_isequal(tree->sep, "*", true) || str_isequal(tree->sep, "?", true)
-    || str_isequal(tree->sep, "[", true) || str_isequal(tree->sep, "]", true)) {
-        my_globbing(tree->cmd, list);
-        return;
-    }
-    if (tree->sep)
-        redirection(tree);
     if (str_isequal(tree->sep, "&&", true))
         return do_and_stuff(env, tree, NULL, list) ? 0 : p_ntty(HEADER, list);
     if (str_isequal(tree->sep, "||", true))
         return do_or_stuff(env, tree, NULL, list) ? 0 : p_ntty(HEADER, list);
+    globbs(tree, list);
     if (!tree->sep && tree->cmd) {
         tree->cmd = get_alias(list, tree->cmd);
         if (!(builtin = get_builtin(tree->cmd)))

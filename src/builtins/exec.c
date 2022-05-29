@@ -10,9 +10,9 @@
 static void wait_exec(int state, env_t **list)
 {
     wait(&state);
-        if (WIFSIGNALED(state))
-            sign_handler(state);
-        p_ntty(HEADER, *list);
+    if (WIFSIGNALED(state))
+        sign_handler(state);
+    p_ntty(HEADER, *list);
 }
 
 static void apply_inhibitors(char **cmd)

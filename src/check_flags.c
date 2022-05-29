@@ -15,7 +15,9 @@ static void lauch_ncurses(void)
 
 static void help_display(void)
 {
-    printf("USAGE :\n\t./42sh\n");
+    printf("USAGE : ./42sh\n");
+    printf("\t-h : show this help.\n");
+    printf("\t-g : displays an animation on launch.\n");
     exit(0);
 }
 

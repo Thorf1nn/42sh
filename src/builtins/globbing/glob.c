@@ -15,7 +15,7 @@ int globbing_error(char **cmd, env_t *list, int r)
             p_ntty(HEADER, list);
             return 1;
         } else {
-            fprintf(stderr,"%s: Some kinda glob error.\n", cmd[0]);
+            fprintf(stderr, "%s: Some kinda glob error.\n", cmd[0]);
             p_ntty(HEADER, list);
             return 1;
         }

@@ -30,6 +30,26 @@ int getchh(void)
     return ch;
 }
 
+void select_history(int k, int *cnt)
+{
+    switch (k) {
+        case 65: clear();
+            printw("%s", bufferchar[*cnt]);
+            *cnt += 1;
+            if (*cnt >= NB_LINES)
+                *cnt = 0;
+            refresh();
+            break;
+        case 66: clear();
+            printw("%s", bufferchar[*cnt]);
+            *cnt -= 1;
+            if (*cnt < 0) *cnt = NB_LINES - 1;
+                refresh();
+            break;
+        default: break;
+    }
+}
+
 void print_history(void)
 {
     int i = getchh();
@@ -43,14 +63,7 @@ void print_history(void)
             j = getchh();
             k = getchh();
         }
-        if (i == 27 && j == 91) {
-            switch (k) {
-                case 65: clear(); printw("%s", bufferchar[cnt]); cnt++;
-                if (cnt >= NB_LINES) cnt = 0; refresh(); break;
-                case 66: clear(); printw("%s", bufferchar[cnt]); cnt--;
-                if (cnt < 0) cnt = NB_LINES - 1; refresh(); break;
-                default: break;
-            }
-        }
+        if (i == 27 && j == 91)
+            select_history(k, &cnt);
     }
 }

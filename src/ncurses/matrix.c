@@ -23,10 +23,9 @@ curse_t *init_param(void)
     return curse;
 }
 
-
 void write_line(curse_t *curse, int ascii_range)
 {
-	attron(COLOR_PAIR(1));
+    attron(COLOR_PAIR(1));
     curse->ascii_char = rand() % ascii_range;
     mvaddch(curse->basey, curse->basex, curse->ascii_char);
     curse->ascii_char = rand() % ascii_range;
@@ -47,7 +46,7 @@ void writecolumn(int ascii_range)
     struct timespec end;
     curse_t *curse = init_param();
 
-	ncurses_input();
+    ncurses_input();
     start.tv_sec = 0;
     for (int counter = 0; counter < curse->vertical_length ;counter++) {
         start.tv_nsec = 30000000;

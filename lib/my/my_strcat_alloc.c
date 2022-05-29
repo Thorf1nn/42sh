@@ -28,4 +28,3 @@ char *strcat_alloc(char const *first, char const *second)
     str[i] = '\0';
     return str;
 }
-

@@ -21,7 +21,6 @@ static void double_redirection_input(tree_t *tree, char *path)
                 break;
             printf("? ");
         }
-        // tree->left->fd[IN] = STDOUT_FILENO;
     }
 }
 

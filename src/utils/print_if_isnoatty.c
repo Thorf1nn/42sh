@@ -48,6 +48,17 @@ static bool re_init(bool *go_print, char const *output)
     return *go_print;
 }
 
+void final_print(char const *output, env_t *list)
+{
+    printf("\033[0;31m");
+    display_username(list);
+    printf("\033[0;32m");
+    print_pwd(list);
+    printf("\033[0;33m");
+    printf("%s", output);
+    printf("\033[0m");
+}
+
 void p_ntty(char const *output, env_t *list)
 {
     static bool go_print = true;
@@ -65,11 +76,5 @@ void p_ntty(char const *output, env_t *list)
         printf("%s", output);
         return;
     }
-    printf("\033[0;31m");
-    display_username(list);
-    printf("\033[0;32m");
-    print_pwd(list);
-    printf("\033[0;33m");
-    printf("%s", output);
-    printf("\033[0m");
+    final_print(output, list);
 }

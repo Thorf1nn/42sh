@@ -22,4 +22,3 @@ char *my_revstr(char *str)
     }
     return str;
 }
-

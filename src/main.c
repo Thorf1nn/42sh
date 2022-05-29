@@ -33,9 +33,8 @@ int main(int argc, char **argv, char **env)
     p_ntty(HEADER, list);
     while (getline(&line, &len, stdin) != -1) {
         p_ntty("init", NULL);
-        if (line) {
+        if (line)
             on_process(builtin, list, line, env);
-        }
     }
     p_ntty(EXIT, list);
     free(line);

@@ -10,9 +10,9 @@
 static void wait_exec(int state, env_t **list)
 {
     wait(&state);
-        if (WIFSIGNALED(state))
-            sign_handler(state);
-        p_ntty(HEADER, *list);
+    if (WIFSIGNALED(state))
+        sign_handler(state);
+    p_ntty(HEADER, *list);
 }
 
 static void apply_inhibitors(char **cmd)
@@ -27,7 +27,7 @@ void exec_binary(env_t **list, char **env, tree_t leaf)
     char **cmd = NULL;
     char *path = NULL;
 
-    if (check_line(leaf.cmd, &cmd, &path, list, env))
+    if (check_line(leaf.cmd, &cmd, &path, list))
         return;
     apply_inhibitors(cmd);
     if (!fork()) {

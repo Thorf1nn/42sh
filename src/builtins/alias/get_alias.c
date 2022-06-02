@@ -10,6 +10,7 @@
 char *get_alias(env_t *alias, char *line)
 {
     char *dest = NULL;
+    alias->id = 0;
 
     if (!line || !line[0])
         return line;

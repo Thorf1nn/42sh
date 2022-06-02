@@ -34,5 +34,5 @@ void create_ncurses(void)
         anime_matrix();
     } else
         wait(NULL);
-    clrscr();
+    printf("\e[1;1H\e[2J");
 }

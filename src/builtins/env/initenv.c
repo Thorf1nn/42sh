@@ -26,6 +26,7 @@ static void parse_env(char *env, env_t **list)
 env_t *init_env(char **env)
 {
     env_t *list = malloc(sizeof(env_t));
+    list->env_array = env;
 
     list->key = NULL;
     list->value = NULL;

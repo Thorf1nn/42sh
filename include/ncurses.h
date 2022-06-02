@@ -7,7 +7,6 @@
 
 #ifndef __NCURSES_H__
     #define __NCURSES_H__
-    #define clrscr() printf("\e[1;1H\e[2J")
     #include <ncurses.h>
     #include <curses.h>
     #include <time.h>

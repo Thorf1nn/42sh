@@ -45,21 +45,20 @@ static bool check_command(char *line, char ***cmd, char **path, env_t **list)
     return true;
 }
 
-static bool check_jobs(char ***cmd, char **path, env_t **list, char **env)
+static bool check_jobs(char ***cmd, char **path, env_t *list)
 {
     static int i = 0;
     pid_t pid;
-    *path = get_path(*list, *cmd);
+    *path = get_path(list, *cmd);
     printf("[%d] %d\n", i, getpid());
     pid = fork();
     if (pid == 0)
-        execve(*path, *cmd, env);
+        execve(*path, *cmd, list->env_array);
     i++;
     return true;
 }
 
-bool check_line(char *line, char ***cmd, char **path,
-env_t **list, char **env)
+bool check_line(char *line, char ***cmd, char **path, env_t **list)
 {
     if (!check_command(line, &*cmd, &*path, list))
         return true;
@@ -67,7 +66,7 @@ env_t **list, char **env)
     my_strlen(line) > 1 && line[my_strlen(line) - 2] != '&') {
         line[my_strlen(line) - 1] = '\0';
         *cmd = strsplit(line, " \t", false);
-        if (check_jobs(&*cmd, &*path, list, env))
+        if (check_jobs(&*cmd, &*path, *list))
             return true;
     }
     return false;

@@ -14,6 +14,7 @@ typedef struct env_s {
     char *key;
     char *value;
     int id;
+    char **env_array;
     struct env_s *next;
 } env_t;
 

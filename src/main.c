@@ -29,7 +29,7 @@ int main(int argc, char **argv, char **env)
         check_flags(argc, argv);
     signal(SIGINT, sign_handler);
     signal(SIGTSTP, sign_handler);
-    clrscr();
+    printf("\e[1;1H\e[2J");
     p_ntty(HEADER, list);
     while (getline(&line, &len, stdin) != -1) {
         p_ntty("init", NULL);

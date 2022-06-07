@@ -1,4 +1,4 @@
-# 42sh 🎮
+# 42sh 💻
 
 The last project of the module system unix programming in C.
 
